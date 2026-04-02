@@ -1,4 +1,5 @@
 # Artificial Intelligence Preference Protocol (AIP-1)
+> A proposed open standard for declaring AI content usage preferences (ai.txt, meta tags, headers)
 
 ![AIP-1 Status](https://img.shields.io/badge/AIP--1-Draft-blue)
 ![AI Preference](https://img.shields.io/badge/AI%20Usage-Declarative-green)
