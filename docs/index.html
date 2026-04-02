@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIP-1 — Artificial Intelligence Preference Protocol</title>
+  <meta name="description" content="AIP-1 is an open standard for declaring AI content usage preferences using ai.txt, HTML meta tags, and HTTP headers." />
+
+  <!-- AIP-1 compliance meta tags -->
+  <meta name="aip:training" content="deny" />
+  <meta name="aip:fine-tune" content="deny" />
+  <meta name="aip:summary" content="allow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       NAVBAR
+  ══════════════════════════════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="logo-bracket">[</span>AIP-1<span class="logo-bracket">]</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#what-is-aip">About</a></li>
+        <li><a href="#spec">Spec</a></li>
+        <li><a href="#implement">Implement</a></li>
+        <li><a href="#badge">Badge</a></li>
+        <li>
+          <a href="https://github.com/SquiddoTech-Systems/AIP-1" target="_blank" class="nav-cta">
+            GitHub →
+          </a>
+        </li>
+      </ul>
+      <button class="nav-toggle" aria-label="Toggle menu" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+  <header class="hero">
+    <div class="hero-grid-bg" aria-hidden="true"></div>
+    <div class="hero-particles" aria-hidden="true" id="particles"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        Draft Standard · Version 1.0 · April 2026
+      </div>
+      <h1 class="hero-title">
+        Artificial Intelligence<br />
+        <span class="gradient-text">Preference Protocol</span>
+      </h1>
+      <p class="hero-subtitle">
+        AIP-1 is a proposed open standard for declaring how your content
+        may be used by AI systems — via <code>ai.txt</code>, HTML meta tags,
+        and HTTP headers.
+      </p>
+      <div class="hero-actions">
+        <a href="#implement" class="btn btn-primary">Get Started</a>
+        <a href="#spec" class="btn btn-outline">Read the Spec</a>
+      </div>
+      <div class="hero-badges">
+        <img src="https://img.shields.io/badge/AIP--1-Draft-blue?style=flat-square" alt="AIP-1 Draft" />
+        <img src="https://img.shields.io/badge/AI%20Usage-Declarative-green?style=flat-square" alt="Declarative" />
+        <img src="https://img.shields.io/badge/AIP--1%20Compliant-Yes-brightgreen?style=flat-square" alt="AIP-1 Compliant" />
+        <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="MIT License" />
+      </div>
+    </div>
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <div class="scroll-arrow"></div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════
+       WHAT IS AIP-1
+  ══════════════════════════════════════ -->
+  <section class="section" id="what-is-aip">
+    <div class="container">
+      <div class="section-label">Overview</div>
+      <h2 class="section-title">What is AIP-1?</h2>
+      <p class="section-subtitle">
+        As AI systems become central to the web, content creators deserve a
+        clear, standardised way to declare their preferences. AIP-1 fills
+        the gap that <code>robots.txt</code> was never designed to cover.
+      </p>
+
+      <div class="cards">
+        <div class="card card--glow">
+          <div class="card-icon">🤝</div>
+          <h3>Neutral by Design</h3>
+          <p>AIP-1 does not restrict AI — it enables <em>transparent communication</em> of preferences between publishers and AI developers.</p>
+        </div>
+        <div class="card card--glow">
+          <div class="card-icon">🔌</div>
+          <h3>Plug-and-Play Compatible</h3>
+          <p>Works alongside existing standards. No infrastructure overhaul required. Add a file, a tag, or a header and you're compliant.</p>
+        </div>
+        <div class="card card--glow">
+          <div class="card-icon">📐</div>
+          <h3>Extensible</h3>
+          <p>Designed with future AI capabilities in mind. New directives can be added without breaking existing implementations.</p>
+        </div>
+        <div class="card card--glow">
+          <div class="card-icon">🌍</div>
+          <h3>Ecosystem-Aligned</h3>
+          <p>Built for adoption by AI labs, search engines, content platforms, and standards bodies such as the W3C.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       ARCHITECTURE
+  ══════════════════════════════════════ -->
+  <section class="section section--dark" id="spec">
+    <div class="container">
+      <div class="section-label">Architecture</div>
+      <h2 class="section-title">Three-Layer Protocol</h2>
+      <p class="section-subtitle">AIP-1 operates across three complementary layers to give publishers fine-grained control at every level of the web stack.</p>
+
+      <div class="layers">
+
+        <div class="layer">
+          <div class="layer-num">01</div>
+          <div class="layer-content">
+            <h3>Root Declaration — <code>ai.txt</code></h3>
+            <p>A plain-text file at your domain root, analogous to <code>robots.txt</code>, declaring site-wide AI usage preferences.</p>
+            <div class="code-block">
+              <div class="code-header">
+                <span class="code-dot red"></span>
+                <span class="code-dot yellow"></span>
+                <span class="code-dot green"></span>
+                <span class="code-filename">https://example.com/ai.txt</span>
+                <button class="copy-btn" data-target="aitxt">Copy</button>
+              </div>
+              <pre id="aitxt"><code><span class="cm"># AIP-1 Configuration File</span>
+
+<span class="ck">User-Agent:</span> <span class="cv">*</span>
+<span class="ck">Allow-Training:</span> <span class="cv-no">no</span>
+<span class="ck">Allow-FineTuning:</span> <span class="cv-no">no</span>
+<span class="ck">Allow-Indexing:</span> <span class="cv-yes">yes</span>
+<span class="ck">Allow-Summarization:</span> <span class="cv-cond">conditional</span>
+
+<span class="ck">User-Agent:</span> <span class="cv">AcademicBot</span>
+<span class="ck">Allow-Training:</span> <span class="cv-yes">yes</span>
+<span class="ck">Allow-CommercialUse:</span> <span class="cv-no">no</span></code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="layer">
+          <div class="layer-num">02</div>
+          <div class="layer-content">
+            <h3>Document Layer — HTML Meta Tags</h3>
+            <p>Per-page granular control placed in the <code>&lt;head&gt;</code> section. Overrides or supplements the root declaration.</p>
+            <div class="code-block">
+              <div class="code-header">
+                <span class="code-dot red"></span>
+                <span class="code-dot yellow"></span>
+                <span class="code-dot green"></span>
+                <span class="code-filename">index.html</span>
+                <button class="copy-btn" data-target="metatags">Copy</button>
+              </div>
+              <pre id="metatags"><code><span class="ct">&lt;meta</span> <span class="ca">name</span>=<span class="cs">"aip:training"</span>   <span class="ca">content</span>=<span class="cs-no">"deny"</span><span class="ct">&gt;</span>
+<span class="ct">&lt;meta</span> <span class="ca">name</span>=<span class="cs">"aip:fine-tune"</span>  <span class="ca">content</span>=<span class="cs-no">"deny"</span><span class="ct">&gt;</span>
+<span class="ct">&lt;meta</span> <span class="ca">name</span>=<span class="cs">"aip:summary"</span>    <span class="ca">content</span>=<span class="cs-yes">"allow"</span><span class="ct">&gt;</span></code></pre>
+            </div>
+            <div class="tag-list">
+              <span class="tag tag-allow">allow</span>
+              <span class="tag tag-deny">deny</span>
+              <span class="tag tag-cond">conditional</span>
+              <span class="tag tag-attr">attribution-required</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="layer">
+          <div class="layer-num">03</div>
+          <div class="layer-content">
+            <h3>Transport Layer — HTTP Headers</h3>
+            <p>Ideal for APIs and dynamically-generated content where HTML markup is unavailable.</p>
+            <div class="code-block">
+              <div class="code-header">
+                <span class="code-dot red"></span>
+                <span class="code-dot yellow"></span>
+                <span class="code-dot green"></span>
+                <span class="code-filename">HTTP Response Header</span>
+                <button class="copy-btn" data-target="httpheader">Copy</button>
+              </div>
+              <pre id="httpheader"><code><span class="ck">AIP-Policy:</span> <span class="cv">no-training, no-finetune, allow-index</span></code></pre>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       DIRECTIVE TABLE
+  ══════════════════════════════════════ -->
+  <section class="section" id="directives">
+    <div class="container">
+      <div class="section-label">Reference</div>
+      <h2 class="section-title">Directive Reference</h2>
+      <p class="section-subtitle">All supported directives and their accepted values.</p>
+
+      <div class="table-wrapper">
+        <table class="dir-table">
+          <thead>
+            <tr>
+              <th>Directive</th>
+              <th>Values</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Allow-Training</code></td>
+              <td><span class="tag tag-allow">yes</span> <span class="tag tag-deny">no</span></td>
+              <td>Use of content to build or improve AI models</td>
+            </tr>
+            <tr>
+              <td><code>Allow-FineTuning</code></td>
+              <td><span class="tag tag-allow">yes</span> <span class="tag tag-deny">no</span></td>
+              <td>Updating models using this domain-specific data</td>
+            </tr>
+            <tr>
+              <td><code>Allow-Indexing</code></td>
+              <td><span class="tag tag-allow">yes</span> <span class="tag tag-deny">no</span></td>
+              <td>Crawling and indexing content for AI search</td>
+            </tr>
+            <tr>
+              <td><code>Allow-Summarization</code></td>
+              <td><span class="tag tag-allow">yes</span> <span class="tag tag-deny">no</span> <span class="tag tag-cond">conditional</span></td>
+              <td>Generating AI summaries or excerpts of content</td>
+            </tr>
+            <tr>
+              <td><code>Allow-CommercialUse</code></td>
+              <td><span class="tag tag-allow">yes</span> <span class="tag tag-deny">no</span></td>
+              <td>Use of content in commercial AI products</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       IMPLEMENTATION GUIDE
+  ══════════════════════════════════════ -->
+  <section class="section section--dark" id="implement">
+    <div class="container">
+      <div class="section-label">Implementation</div>
+      <h2 class="section-title">Get Compliant in 4 Steps</h2>
+      <p class="section-subtitle">Implementing AIP-1 takes minutes. Follow these steps to declare your preferences.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h3>Create <code>ai.txt</code></h3>
+            <p>Add a plain-text file to your domain root at <code>/ai.txt</code>. Declare your global preferences using AIP-1 directives.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h3>Add HTML Meta Tags</h3>
+            <p>Insert <code>&lt;meta&gt;</code> tags inside each page's <code>&lt;head&gt;</code> section for page-level overrides.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h3>Configure HTTP Headers</h3>
+            <p>For APIs and dynamic content, add the <code>AIP-Policy</code> response header to your server or CDN config.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h3>Document Your Policy Publicly</h3>
+            <p>Transparency is central to AIP-1. Publish a human-readable AI usage policy page for your users and partners.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       COMPLIANCE BADGE
+  ══════════════════════════════════════ -->
+  <section class="section" id="badge">
+    <div class="container">
+      <div class="section-label">Badge</div>
+      <h2 class="section-title">Show Your Compliance</h2>
+      <p class="section-subtitle">Signal to the world that your site respects AIP-1. Add the badge to your README or site footer.</p>
+
+      <div class="badge-showcase">
+        <div class="badge-preview">
+          <img src="https://img.shields.io/badge/AIP--1-Compliant-brightgreen?style=for-the-badge" alt="AIP-1 Compliant Badge" class="badge-img" />
+        </div>
+
+        <div class="badge-tabs">
+          <button class="tab-btn active" data-tab="markdown">Markdown</button>
+          <button class="tab-btn" data-tab="html">HTML</button>
+        </div>
+
+        <div class="tab-panel active" id="tab-markdown">
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-dot red"></span>
+              <span class="code-dot yellow"></span>
+              <span class="code-dot green"></span>
+              <span class="code-filename">README.md</span>
+              <button class="copy-btn" data-target="badge-md">Copy</button>
+            </div>
+            <pre id="badge-md"><code>![AIP-1 Compliant](https://img.shields.io/badge/AIP--1-Compliant-brightgreen)</code></pre>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-html">
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-dot red"></span>
+              <span class="code-dot yellow"></span>
+              <span class="code-dot green"></span>
+              <span class="code-filename">index.html</span>
+              <button class="copy-btn" data-target="badge-html">Copy</button>
+            </div>
+            <pre id="badge-html"><code><span class="ct">&lt;img</span>
+  <span class="ca">src</span>=<span class="cs">"https://img.shields.io/badge/AIP--1-Compliant-brightgreen"</span>
+  <span class="ca">alt</span>=<span class="cs">"AIP-1 Compliant Badge"</span>
+<span class="ct">&gt;</span></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       WHY IT MATTERS
+  ══════════════════════════════════════ -->
+  <section class="section section--dark" id="why">
+    <div class="container two-col">
+      <div>
+        <div class="section-label">Motivation</div>
+        <h2 class="section-title">Why AIP-1 Matters</h2>
+        <p>
+          Existing mechanisms like <code>robots.txt</code> were designed for search
+          engines, not generative AI. They offer no way to distinguish between
+          <em>indexing</em>, <em>training</em>, <em>fine-tuning</em>, or
+          <em>commercial use</em>.
+        </p>
+        <p>
+          AIP-1 closes this gap by introducing a structured, extensible vocabulary
+          that all stakeholders — publishers, AI developers, and standards bodies —
+          can adopt.
+        </p>
+        <a href="https://github.com/SquiddoTech-Systems/AIP-1" target="_blank" class="btn btn-primary" style="margin-top:1.5rem;">
+          View the Full Spec →
+        </a>
+      </div>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Protocol Layers</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">5</div>
+          <div class="stat-label">Core Directives</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Supported Values</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Use Cases</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="footer-logo">
+          <span class="logo-bracket">[</span>AIP-1<span class="logo-bracket">]</span>
+        </div>
+        <p class="footer-tagline">Artificial Intelligence Preference Protocol<br>Draft Standard v1.0 · April 2026</p>
+      </div>
+      <nav class="footer-links">
+        <a href="https://github.com/SquiddoTech-Systems/AIP-1" target="_blank">GitHub</a>
+        <a href="https://github.com/SquiddoTech-Systems/AIP-1/blob/main/STATEMENT.md" target="_blank">Full Spec</a>
+        <a href="https://github.com/SquiddoTech-Systems/AIP-1/blob/main/README.md" target="_blank">README</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>Released under the <strong>MIT License</strong>. Open for feedback, iteration, and collaboration.</p>
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
