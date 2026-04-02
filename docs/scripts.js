@@ -70,18 +70,21 @@
   const ctx     = canvas.getContext('2d');
   container.appendChild(canvas);
 
-  var W, H, dots;
+  var canvasWidth, canvasHeight, dots;
+  var MIN_PARTICLE_RADIUS    = 0.4;
+  var MAX_PARTICLE_RADIUS    = 1.4;
+  var MAX_CONNECTION_DISTANCE = 110;
 
   function resize() {
-    W = canvas.width  = container.offsetWidth;
-    H = canvas.height = container.offsetHeight;
+    canvasWidth  = canvas.width  = container.offsetWidth;
+    canvasHeight = canvas.height = container.offsetHeight;
   }
 
   function randomDot() {
     return {
-      x:  Math.random() * W,
-      y:  Math.random() * H,
-      r:  Math.random() * 1.4 + 0.4,
+      x:  Math.random() * canvasWidth,
+      y:  Math.random() * canvasHeight,
+      r:  Math.random() * MAX_PARTICLE_RADIUS + MIN_PARTICLE_RADIUS,
       vx: (Math.random() - 0.5) * 0.25,
       vy: (Math.random() - 0.5) * 0.25,
       a:  Math.random() * 0.5 + 0.15
@@ -91,20 +94,20 @@
   function init() {
     resize();
     dots = [];
-    var n = Math.min(80, Math.floor((W * H) / 14000));
-    for (var i = 0; i < n; i++) dots.push(randomDot());
+    var particleCount = Math.min(80, Math.floor((canvasWidth * canvasHeight) / 14000));
+    for (var i = 0; i < particleCount; i++) dots.push(randomDot());
   }
 
   function draw() {
-    ctx.clearRect(0, 0, W, H);
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     dots.forEach(function (d) {
       // Move
       d.x += d.vx;
       d.y += d.vy;
-      if (d.x < 0) d.x = W;
-      if (d.x > W) d.x = 0;
-      if (d.y < 0) d.y = H;
-      if (d.y > H) d.y = 0;
+      if (d.x < 0) d.x = canvasWidth;
+      if (d.x > canvasWidth)  d.x = 0;
+      if (d.y < 0) d.y = canvasHeight;
+      if (d.y > canvasHeight) d.y = 0;
 
       // Draw dot
       ctx.beginPath();
@@ -119,8 +122,8 @@
         var dx   = dots[i].x - dots[j].x;
         var dy   = dots[i].y - dots[j].y;
         var dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 110) {
-          var alpha = (1 - dist / 110) * 0.12;
+        if (dist < MAX_CONNECTION_DISTANCE) {
+          var alpha = (1 - dist / MAX_CONNECTION_DISTANCE) * 0.12;
           ctx.beginPath();
           ctx.moveTo(dots[i].x, dots[i].y);
           ctx.lineTo(dots[j].x, dots[j].y);
