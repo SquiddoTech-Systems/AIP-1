@@ -3,7 +3,7 @@
 
 ![AIP-1 Status](https://img.shields.io/badge/AIP--1-Draft-blue)
 ![AI Preference](https://img.shields.io/badge/AI%20Usage-Declarative-green)
-![Compliance](https://img.shields.io/badge/AIP--1%20Compliant-Yes-brightgreen)
+![[AIP-1 Compliant](https://img.shields.io/badge/AIP--1-Compliant-brightgreen)](https://github.com/SquiddoTech-Systems/AIP-1/)
 
 ---
 
@@ -51,18 +51,18 @@ Sites and services that adopt AIP-1 can display a public badge to signal complia
 ### Markdown Version
 
 ```md
-![AIP-1 Compliant](https://img.shields.io/badge/AIP--1-Compliant-brightgreen)
+![[AIP-1 Compliant](https://img.shields.io/badge/AIP--1-Compliant-brightgreen)](https://github.com/SquiddoTech-Systems/AIP-1/)
 ```
 
 ### HTML Version
 
 ```html
-<img src="https://img.shields.io/badge/AIP--1-Compliant-brightgreen" alt="AIP-1 Compliant Badge">
+<a href="https://github.com/SquiddoTech-Systems/AIP-1/"><img src="https://img.shields.io/badge/AIP--1-Compliant-brightgreen" alt="AIP-1 Compliant Badge" style="border: none; display: block; max-width: 100%; height: auto;"></a>
 ```
 
 ### Example
 
-![AIP-1 Compliant](https://img.shields.io/badge/AIP--1-Compliant-brightgreen)
+![[AIP-1 Compliant](https://img.shields.io/badge/AIP--1-Compliant-brightgreen)](https://github.com/SquiddoTech-Systems/AIP-1/)
 
 ---
 
